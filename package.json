@@ -2,10 +2,12 @@
   "name": "antd-demo-ts",
   "version": "0.1.0",
   "private": true,
-  "homepage": ".",
+  "main": "public/electron-starter.js",
+  "homepage": "./",
   "dependencies": {
     "@craco/craco": "^7.1.0",
     "@material-ui/icons": "^4.11.3",
+    "@react-navigation/native": "^6.1.6",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -14,16 +16,17 @@
     "@types/react": "^18.0.28",
     "@types/react-custom-scrollbars": "^4.0.10",
     "@types/react-dom": "^18.0.11",
-    "@types/react-swipeable-views": "^0.13.1",
+    "@types/react-modal": "^3.16.0",
     "@types/validator": "^13.7.14",
     "antd": "^5.3.2",
     "antd-img-crop": "^4.10.2",
-    "craco": "^0.0.3",
+    "axios": "^1.3.4",
     "dayjs": "^1.11.7",
     "material-ui": "^0.20.2",
     "react": "^18.2.0",
     "react-custom-scrollbars": "^4.2.1",
     "react-dom": "^18.2.0",
+    "react-modal": "^3.16.1",
     "react-native": "^0.71.4",
     "react-native-web": "^0.18.12",
     "react-router-dom": "^6.9.0",
@@ -41,7 +44,9 @@
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "electron-dev": "electron .",
+    "electron-pack": "build -c.extraMetadata.main=build/electron-starter.js"
   },
   "eslintConfig": {
     "extends": [
@@ -66,6 +71,8 @@
     "@babel/core": "^7.21.3",
     "@babel/preset-env": "^7.20.2",
     "@babel/preset-react": "^7.18.6",
-    "@types/styled-components": "^5.1.26"
+    "@types/styled-components": "^5.1.26",
+    "electron": "^11.5.0",
+    "electron-is-dev": "^2.0.0"
   }
 }

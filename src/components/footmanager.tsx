@@ -62,7 +62,7 @@ export default function MyFootNav() {
   // 定义一个事件处理函数，用来在点击导航项时更新value的状态，并跳转到相应的路由路径
   const handleChange = (event:any, newValue:any) => {
     setValue(newValue);
-    // window.location.href = newValue;
+    //window.location.href = newValue;
   };
 
   const classes = useStyles();

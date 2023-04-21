@@ -37,3 +37,13 @@
     font-family: AARDC;  
     src: url('./fonts/AARDC___.TTF');
   }
+
+  @font-face {  
+    font-family: angltrr;  
+    src: url('./fonts/angltrr.ttf');
+  }
+
+  @font-face {  
+    font-family: Speedline;  
+    src: url('./fonts/Speedline.ttf');
+  }
