@@ -1,0 +1,39 @@
+@font-face {  
+    font-family: airMitalic;  
+    src: url('./fonts/air_mitalic.ttf');
+  }
+
+  @font-face {  
+    font-family: Chanmd;  
+    src: url('./fonts/Chanmd__.ttf');
+  }
+
+  @font-face {  
+    font-family: blackJar;  
+    src: url('./fonts/BLACKJAR.TTF');
+  }
+
+  @font-face {  
+    font-family: Ellipsoideogram;  
+    src: url('./fonts/Ellipsoideogram.ttf');
+  }
+
+  @font-face {  
+    font-family: IKART;  
+    src: url('./fonts/IKART___.TTF');
+  }
+
+  @font-face {  
+    font-family: Ihop;  
+    src: url('./fonts/Ihop.ttf');
+  }
+
+  @font-face {  
+    font-family: Gorlock;  
+    src: url('./fonts/Gorlock\ \ Bold.ttf');
+  }
+
+  @font-face {  
+    font-family: AARDC;  
+    src: url('./fonts/AARDC___.TTF');
+  }

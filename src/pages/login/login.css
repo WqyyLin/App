@@ -1,0 +1,9 @@
+
+.ant-input {
+    background-color: transparent !important;
+    
+}
+
+.ant-input-affix-wrapper {
+    min-height: 50px !important;
+}

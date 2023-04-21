@@ -1,0 +1,14 @@
+.ant-card-meta-title {
+    text-align: center;
+    font-size: 35px !important;
+}
+
+.ant-avatar {
+    height: 70px !important;
+    width: 70px !important;
+}
+
+.ant-avatar svg {
+    height: 70px !important;
+    width: 70px !important;
+}
