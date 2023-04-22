@@ -88,7 +88,7 @@ const OurCalendar: React.FC = () => {
             <ul className="events">
                 {listData.map((item) => (
                     <Fragment>
-                        <Link to='user/register'>
+                        <Link to='calendat/event'>
                             <li key={item.content} style={{maxHeight: 100}}>
                                 <Badge status={item.type as BadgeProps['status']} text={item.content} />
                             </li>

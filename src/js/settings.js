@@ -2,7 +2,8 @@ import bg from '../img/9.jpg'
 import styled from "styled-components";
 
 export const Settings = styled.div`
-    background:url(${bg});
+    // background:url(${bg});
+    background-color:#fffef9;
     background-repeat:no-repeat ;
     background-size: cover;
     background-position: center;

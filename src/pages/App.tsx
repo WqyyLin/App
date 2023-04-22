@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useState}  from 'react';
 import { LaptopOutlined, NotificationOutlined, UserOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
 import MyFootNav from '../components/footnav'
+import {BackHandler, ToastAndroid} from 'react-native';
 const { Header, Content, Footer, Sider } = Layout;
 
 const items1: MenuProps['items'] = ['Facility', '', '3'].map((key) => ({
@@ -34,6 +35,28 @@ const App: React.FC = () => {
     const {
         token: { colorBgContainer },
     } = theme.useToken();
+    const [backClickCount, setBackClickCount] = useState(0);
+
+    React.useEffect(() => {
+      BackHandler.addEventListener('hardwareBackPress', handleBackButton);
+      return () => {
+        BackHandler.removeEventListener('hardwareBackPress', handleBackButton);
+      };
+    }, [backClickCount]);
+  
+    const handleBackButton = () => {
+      backClickCount == 1 ? BackHandler.exitApp() : showToast();
+      return true;
+    };
+  
+    const showToast = () => {
+      ToastAndroid.show('Press again to exit the application', ToastAndroid.SHORT);
+      setBackClickCount(1);
+      setTimeout(() => {
+        setBackClickCount(0);
+      }, 2000);
+    };
+
 
     return (
         <Layout>
@@ -56,7 +79,6 @@ const App: React.FC = () => {
             </Footer>
             <MyFootNav></MyFootNav>
         </Layout>
-
     );
 };
 

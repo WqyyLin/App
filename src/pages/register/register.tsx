@@ -10,7 +10,19 @@ import MyBottomNavigation from '../../components/footbar'
 import CssBaseline from "@material-ui/core/CssBaseline";
 import validator from 'validator';
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import ReactModal from "react-modal";
+import Slide from '@material-ui/core/Slide';
+import { TransitionProps } from '@material-ui/core/transitions';
+import { createTheme, responsiveFontSizes, ThemeProvider,createStyles, makeStyles,Theme} from '@material-ui/core/styles';
 
+interface Information {
+    message?: string;
+}
 
 const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
@@ -26,10 +38,42 @@ const getBase64 = (file: RcFile): Promise<string> =>
         reader.onerror = (error) => reject(error);
     });
 
-
+    let theme = createTheme();
+    theme = responsiveFontSizes(theme);
+    
+    const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+          root: {
+          '& > *': {
+              margin: theme.spacing(0),
+          },
+          },
+      }),
+      );
+    
+    
+    const Transition = React.forwardRef(function Transition(
+        props: TransitionProps & { children?: React.ReactElement<any, any> },
+        ref: React.Ref<unknown>,
+      ) {
+        return <Slide direction="up" ref={ref} {...props} />;
+      });
 
 const RegisterPage: React.FC = () => {
+    const [open, setOpen] = React.useState(false);
+    const [infos, setInfo] = useState<Information>();
     const navigate = useNavigate();
+
+    const classes = useStyles();
+
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+  
+    const handleClose = () => {
+      setOpen(false);
+    };
+
     const onFinish = (values: any) => {
         
         fetch('http://localhost:8080//user/create', {
@@ -39,15 +83,35 @@ const RegisterPage: React.FC = () => {
             },
             body: JSON.stringify(values)
         })
-            .then(res => {
-                res.json()
+            .then((res) => {
+                if(res.ok){
+                    // console.log(111111111)
+                    return res.json();
+                }else{
+                    throw res;
+                }
             })
             .then(data => {
-                console.log(data);
-                alert('Register successfully!')
-                navigate('/login')
+                if(data.ercode == 201){
+                    console.log(data);
+                    // alert('Register successfully!')
+                    setInfo(data);
+                    handleClickOpen();
+                    navigate('/login')
+                }else if(data.ercode == 400){
+                    console.log(data);
+                    setInfo(data);
+                    handleClickOpen();
+                }else{
+                    console.log(data);
+                    setInfo(data);
+                    handleClickOpen();
+                }
+
             })
             .catch(err => {
+                // setInfo(err);
+                // handleClickOpen();
                 console.error(err);
             })
     };
@@ -337,7 +401,27 @@ const RegisterPage: React.FC = () => {
                     <Text type="secondary" style={{fontFamily:'Ellipsoideogram'}}>Do you have an account? <Link to='/login' style={{fontWeight: 'bold'}}>SIGN
                         IN</Link></Text>
                 </Row>
-
+                <div className={classes.root} style={{marginBottom:5, marginTop:5, backgroundColor:'whitesmoke'}}>
+                          <Dialog
+                            open={open}
+                            TransitionComponent={Transition}
+                            keepMounted
+                            onClose={handleClose}
+                            aria-labelledby="alert-dialog-slide-title"
+                            aria-describedby="alert-dialog-slide-description"
+                        >
+                            <DialogTitle id="alert-dialog-slide-title" style={{fontFamily:"Ihop",fontSize:18}}>{infos?.message}</DialogTitle>
+                            <DialogContent>
+                            <DialogContentText id="alert-dialog-slide-description">
+                                
+                            </DialogContentText>
+                            </DialogContent>
+                            <DialogActions>
+                            <Button onClick={handleClose} color="primary">
+                                Cancel
+                            </Button>
+                            </DialogActions>
+                        </Dialog></div>
             </Form>
             
             {/* <BottomNavigation value={value} onChange={handleChange} className={classes.root}>

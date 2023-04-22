@@ -4,33 +4,138 @@ import {KeyOutlined, MailOutlined} from "@ant-design/icons";
 import {Link} from "react-router-dom";
 import {HomeWrapper} from "../../js/style";
 import CssBaseline from "@material-ui/core/CssBaseline";
+import { Navigate } from 'react-router-dom';
 import "./login.css"
-
+import { useNavigate } from "react-router-dom";
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import ReactModal from "react-modal";
+import Slide from '@material-ui/core/Slide';
+import { TransitionProps } from '@material-ui/core/transitions';
+import { createTheme, responsiveFontSizes, ThemeProvider,createStyles, makeStyles,Theme} from '@material-ui/core/styles';
 const {Text} = Typography;
 
-const onFinish = (values: any) => {
-    fetch('http://localhost:8080/user/login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(values)
-    })
-        .then(res => res.json())
-        .then(data => {
-            console.log(data);
-        })
-        .catch(err => {
-            console.error(err);
-        });
-};
+interface Information {
+    message?: string;
+}
+
 
 const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
 };
+
+
+let theme = createTheme();
+theme = responsiveFontSizes(theme);
+
+const useStyles = makeStyles((theme: Theme) =>
+createStyles({
+      root: {
+      '& > *': {
+          margin: theme.spacing(0),
+      },
+      },
+  }),
+  );
+
+
+const Transition = React.forwardRef(function Transition(
+    props: TransitionProps & { children?: React.ReactElement<any, any> },
+    ref: React.Ref<unknown>,
+  ) {
+    return <Slide direction="up" ref={ref} {...props} />;
+  });
+
 const LoginPage: React.FC = () => {
+  // 定义一个状态变量，表示是否显示弹窗
+    const [showModal, setShowModal] = React.useState(false);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [screenWidth, setScreenWidth] = useState(window.innerWidth);
     const [screenHeight, setScreenHeight] = useState(window.innerHeight);
+    const [open, setOpen] = React.useState(false);
+    const [infos, setInfo] = useState<Information>();
+
+    const classes = useStyles();
+
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+  
+    const handleClose = () => {
+      setOpen(false);
+    };
+
+
+    const navigate = useNavigate();
+
+    // const MyComponent = () => {
+    //     const navigate = useNavigate();
+      
+    //     const handleClick = () => {
+    //       navigate("/some-url");
+    //     };
+    // }
+
+    const onFinish = (values: any) => {
+        fetch('http://localhost:8080/user/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include',
+            body: JSON.stringify(values)
+        })
+            .then((res) => {
+                if(res.ok){
+                    // console.log(111111111)
+                    return res.json();
+                }else{
+                    throw res;
+                }
+            })
+            .then(data => {
+                console.log(data);
+                if(data.ercode == 201){
+                    console.log(1111111111)
+                    // 存储登录信息到sessionStorage
+                    sessionStorage.setItem("email", data.user.email);
+                    //sessionStorage.setItem("token", data.token);
+                    console.log(sessionStorage.getItem('email'))
+                    // return <Navigate to="/user/facility"/>;
+                    // 设置isAuthenticated为true，进行页面跳转
+                    setIsAuthenticated(true);
+                    navigate("/user/facility", { replace: true });
+                }
+                else if(data.ercode == 400){
+                    setInfo(data);
+                    console.log(sessionStorage.getItem('email'))    
+                    // setIsAuthenticated(true); 
+                    console.log(isAuthenticated)
+                    // navigate("/user/facility", { replace: true });
+                    setShowModal(true);
+                    handleClickOpen();
+                    console.log(2222222222)
+                }else{
+                    setInfo(data);
+                    handleClickOpen();
+                    console.log(3333333333)
+                    
+                }
+            })
+            .catch(err => {
+                console.error(err);
+            });
+            // 如果isAuthenticated为true，跳转到/user/facility路径
+            console.log(isAuthenticated)
+            // if (isAuthenticated) {
+            //     // 使用navigate函数跳转
+            //     navigate("/user/facility", { replace: true });
+            // }
+    };
+
 
     useEffect(() => {
         // Define a function to handle window resize
@@ -134,6 +239,28 @@ const LoginPage: React.FC = () => {
                             </Form>
                         </Col>
                     </Row>
+                    <div className={classes.root} style={{marginBottom:5, marginTop:5, backgroundColor:'whitesmoke'}}>
+                          <Dialog
+                            open={open}
+                            TransitionComponent={Transition}
+                            keepMounted
+                            onClose={handleClose}
+                            aria-labelledby="alert-dialog-slide-title"
+                            aria-describedby="alert-dialog-slide-description"
+                        >
+                            <DialogTitle id="alert-dialog-slide-title" style={{fontFamily:"Ihop",fontSize:18}}>{infos?.message}</DialogTitle>
+                            <DialogContent>
+                            <DialogContentText id="alert-dialog-slide-description">
+                                
+                            </DialogContentText>
+                            </DialogContent>
+                            <DialogActions>
+                            <Button onClick={handleClose} color="primary">
+                                Cancel
+                            </Button>
+                            </DialogActions>
+                        </Dialog></div>
+
                 </Col>
                 <Col span={3}></Col>
                 <Row style={{height: '75%', width: '100%'}} align='middle' justify='center'>
@@ -141,7 +268,19 @@ const LoginPage: React.FC = () => {
                         UP</Link></Text>
                 </Row>
             </Row>
+            {/* 弹窗组件 */}
+            {/* <ReactModal
+                            isOpen={showModal} // 是否显示弹窗
+                            onRequestClose={() => setShowModal(false)} // 点击遮罩或按ESC时关闭弹窗
+                            contentLabel="Error Message" // 弹窗的内容标签，用于屏幕阅读器
+                          >
+                            <h2>Something went wrong</h2>
+                            <p>Please try again later</p>
+                            <button onClick={() => setShowModal(false)}>Close</button>
+                          </ReactModal> */}
+
         </HomeWrapper>
+                          
     );
 };
 

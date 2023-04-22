@@ -13,26 +13,28 @@ import gym2 from "../../../img/2.jpg"
 import gym3 from "../../../img/5.jpg"
 import gym4 from "../../../img/7.jpg"
 import gym5 from "../../../img/8.jpg"
+import { useNavigate,useLocation } from 'react-router-dom'
 
 const {Content} = Layout;
 const {Meta} = Card;
 const {Option} = Select;
 const {Search} = Input;
 
+interface ActivityType{
+    name?:String;
+}
+
 interface DataType {
-    gender?: string;
-    name: {
-        title?: string;
-        first?: string;
-        last?: string;
-    };
+    fid?:number;
+    Ad_title?: string;
+    Ad_describtion?: string;
+    name?:string;
+    holdpeople?:number;
+    groundnumber?:number;
+    starttime?:number;
+    endtime?:number;
+    activity?:ActivityType[];
     email?: string;
-    picture: {
-        large?: string;
-        medium?: string;
-        thumbnail?: string;
-    };
-    nat?: string;
     loading: boolean;
 }
 
@@ -91,6 +93,8 @@ const fakeDataUrl = `https://randomuser.me/api/?results=${count}&inc=name,gender
 
 const onSearch = (value: string) => console.log(value);
 const UserFacility: React.FC = () => {
+
+
     const [screenWidth, setScreenWidth] = useState(window.innerWidth);
     const [screenHeight, setScreenHeight] = useState(window.innerHeight);
 
@@ -121,32 +125,44 @@ const UserFacility: React.FC = () => {
     const {
         token: {colorBgContainer},
     } = theme.useToken();
+    const currentSession = sessionStorage.getItem('email');
+
     useEffect(() => {
-    //     fetch("http://localhost:8080/user/manager/facilities")
-    //         .then((response) => {
-    //             if (response.ok) {
-    //                 return response.json();
-    //             } else {
-    //                 throw response;
-    //             }
-    //         })
-    //         .then((data) => {
-    //             setInfo(data);
-    //         })
-    //         .catch((error) => {
-    //             setError(error);
-    //         })
-    //         .finally(() => {
-    //             setLoading(false);
-    //         });
-            fetch(fakeDataUrl)
-                .then((res) => res.json())
-                .then((res) => {
-                    setInitLoading(false);
-                    setData(res.results);
-                    setList(res.results);
-                });
+        fetch("http://localhost:8080/user/manager/facilities")
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            })
+            .then((response) => {
+                console.log(currentSession)
+                console.log(response)
+                setInfo(response.groundName);
+                setInitLoading(false);
+                setData(response.groundName);
+                setList(response.groundName);
+                console.log(response.groundName)
+            })
+            .catch((error) => {
+                setError(error);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     }, []);
+
+    const navigate = useNavigate();
+    // 使用useNavigate import { useNavigate } from “react-router-dom”;
+
+    // function ListItem() { 
+    //     const navigate = useNavigate();
+    //     function handleClick() { 
+    //         navigate({ pathname: "/newpage", state: { id: item.id } }); 
+    //     }
+    //     return ( <List.Item actions={[<a key="book" onClick={handleClick}>Book</a>]} > // 其他内容 </List.Item> ); 
+    // }
 
     const prefixSelector = (
         <Form.Item name="prefix1" noStyle>
@@ -161,15 +177,6 @@ const UserFacility: React.FC = () => {
     const onFinish = (values: any) => {
         console.log('Received values of form: ', values);
     };
-
-    // if (loading) {
-    //     return <div>Loading...</div>;
-    // }
-    //
-    // if (error) {
-    //     return <div>Error!</div>;
-    // }
-
 
     return (
         <Layout style={{width: screenWidth, height: screenHeight, overflow: "hidden"}}>
@@ -236,7 +243,7 @@ const UserFacility: React.FC = () => {
                                 style={{height: "100%"}}
                             >
                                 <Search
-                                    placeholder="input search text"
+                                    placeholder="What you want to search for"
                                     onSearch={onSearch}
                                     enterButton
                                     addonBefore={prefixSelector}
@@ -247,6 +254,7 @@ const UserFacility: React.FC = () => {
                     <Col span={1}></Col>
                 </Row>
                 <CssBaseline />
+                
                 <SimpleBar style={{ maxHeight: "50%", marginRight: "5%", marginLeft: "5%"}}>
                     <List
                         loading={initLoading}
@@ -254,15 +262,27 @@ const UserFacility: React.FC = () => {
                         dataSource={list}
                         renderItem={(item) => (
                             <List.Item
-                                actions={[<a key="book">Book</a>]}
+                                actions={[
+                                    <a key="book" onClick={() => navigate("/facility/"+item.fid, { state: { id: item.fid ,name:item.name} })}>Book</a>
+                                ]}
                             >
                                 <Skeleton avatar title={false} loading={item.loading} active>
                                     <List.Item.Meta
-                                        title= "Activity"
-                                        description="Activity Description!!!Activity Description!!!Activity Description!!!Activity Description!!!"
+                                        title= {item.name}
+                                        // description={item.activity?.map((act:ActivityType) => <p>{act.name}</p>)}
+                                        description={
+                                            <div>
+                                            <p style={{fontSize:18}}>{item.Ad_describtion}</p>
+                                            <h1>Time: {item.starttime}:00 ~ {item.endtime}:00</h1>
+                                            <p></p>
+                                            </div>
+                                    }
+
                                     />
                                 </Skeleton>
+                                
                             </List.Item>
+                           
                         )}
                     />
                 </SimpleBar>

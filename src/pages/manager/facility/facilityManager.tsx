@@ -134,7 +134,7 @@ const FacilityManager: React.FC<FacilityManagerProps> = (props) => {
     } = theme.useToken();
     useEffect(() => {
         fetch("http://localhost:8080/user/manager/facilities")
-            .then((response) => {
+            .then((response) => {`0000000000`
                 if (response.ok) {
                     return response.json();
                 } else {

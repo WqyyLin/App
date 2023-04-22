@@ -1,16 +1,24 @@
 import React, {useEffect, useState} from 'react';
 import {
     EditOutlined,
+    EllipsisOutlined,
     KeyOutlined,
     MailOutlined,
+    SettingOutlined,
     UserOutlined
 } from '@ant-design/icons';
-import {Avatar, Button, Card, Carousel, Col, Form, Input, Layout, Modal, Row, Select, theme} from 'antd';
+import {Avatar, Button, Card, Col, Form, Input, Layout, Modal, Row, Select, theme} from 'antd';
 import MyFootNav from "../../../components/footmanager";
+import {Console} from "inspector";
+import { View } from 'react-native'
 const {Content} = Layout;
 const {Meta} = Card;
 const {Option} = Select;
 const {Search} = Input;
+
+
+// import SwipeableViews from 'react-swipeable-views';
+// import { autoPlay } from 'react-swipeable-views-utils';
 
 interface Information {
     information: any;
@@ -21,7 +29,7 @@ interface User {
     email: string;
     name: string;
     money: number;
-    membership: number;
+    member: boolean;
     head: any;
 }
 
@@ -32,7 +40,7 @@ const onClickKey = () => {
 const onSearch = (value: string) => console.log(value);
 const UserManager: React.FC = () => {
     const [form] = Form.useForm();
-    const [open, setOpen] = useState<boolean[]>([false]);
+    const [open, setOpen] = useState(false);
     const [infos, setInfo] = useState<Information>();
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<Error | null>(null);
@@ -96,6 +104,31 @@ const UserManager: React.FC = () => {
         console.log('Received values of form: ', values);
     };
 
+    const showModal = () => {
+        setOpen(true);
+    };
+
+    const handleKeyOk = (props: any) => {
+        fetch('http://localhost:8080/user/manager/users/'+ props, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+            })
+            .catch(err => {
+                console.error(err);
+            });
+        setOpen(false);
+    };
+
+    const handleKeyCancel = () => {
+        setOpen(false);
+    };
+
     return (
         <Layout style={{width: "100%", height: "100%"}}>
             <Content style={{marginTop: "5%"}}>
@@ -136,32 +169,7 @@ const UserManager: React.FC = () => {
                     style={{marginLeft: "2%", marginRight: "2%"}}
                 >
                     {
-                        infos?.information.map((user: User, index: any) => {
-
-                            const showModal = (props: any) => {
-                                setOpen( new Array(index+1).fill(false).map((_, i) => index === i));
-                            };
-                            const handleKeyOk = (props: any) => {
-                                fetch('http://localhost:8080/user/manager/users/'+ props, {
-                                    method: 'POST',
-                                    headers: {
-                                        'Content-Type': 'application/json'
-                                    },
-                                })
-                                    .then(res => res.json())
-                                    .then(data => {
-                                        console.log(data);
-                                    })
-                                    .catch(err => {
-                                        console.error(err);
-                                    });
-                                setOpen([false]);
-                            };
-
-                            const handleKeyCancel = () => {
-                                setOpen([false]);
-                            };
-
+                        infos?.information.map((user: User) => {
                             return <Col span={12}>
                                 <Card
                                     hoverable
@@ -169,32 +177,33 @@ const UserManager: React.FC = () => {
                                         width: "100%",
                                     }}
                                     actions={[
-                                        <KeyOutlined key={"key" + user.id} onClick={() => showModal(user.email)}/>,
-                                        <EditOutlined key={"edit" + user.id}/>,
-                                        <MailOutlined key={"email" + user.id}/>,
+                                        <KeyOutlined key="key" onClick={showModal}/>,
+                                        <EditOutlined key="edit"/>,
+                                        <MailOutlined key="email"/>,
                                     ]}
                                     title={user.name}
                                 >
                                     <Meta
                                         avatar={user.head?<Avatar style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />}/> : <Avatar icon={<UserOutlined />}/>}
                                         title={user.money+"￥"}
-                                        description={user.membership ? "Member" : "Outsider" }
+                                        description={user.member ? "Member" : "Outsider" }
                                     />
+                                    <Modal
+                                        open={open}
+                                        title="Title"
+                                        onOk={() => handleKeyOk(user.email)}
+                                        onCancel={handleKeyCancel}
+                                    >
+                                        <p>Please confirm to reset the password of the account</p>
+                                    </Modal>
                                 </Card>
-                                <Modal
-                                    key={index}
-                                    open= {open[index]}
-                                    title="Confirm"
-                                    onOk={() => handleKeyOk(user.email)}
-                                    onCancel={handleKeyCancel}
-                                >
-                                    <p>Please confirm to reset the password of the account</p>
-                                </Modal>
                             </Col>
                         })
                     }
                 </Row>
             </Content>
+
+
             <MyFootNav/>
         </Layout>
         
