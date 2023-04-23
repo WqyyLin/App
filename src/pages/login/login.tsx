@@ -99,7 +99,6 @@ const LoginPage: React.FC = () => {
             .then(data => {
                 console.log(data);
                 if(data.ercode == 201){
-                    console.log(1111111111)
                     // 存储登录信息到sessionStorage
                     sessionStorage.setItem("email", data.user.email);
                     //sessionStorage.setItem("token", data.token);
@@ -117,12 +116,9 @@ const LoginPage: React.FC = () => {
                     // navigate("/user/facility", { replace: true });
                     setShowModal(true);
                     handleClickOpen();
-                    console.log(2222222222)
                 }else{
                     setInfo(data);
                     handleClickOpen();
-                    console.log(3333333333)
-                    
                 }
             })
             .catch(err => {
