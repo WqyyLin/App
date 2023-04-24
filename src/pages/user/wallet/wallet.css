@@ -1,0 +1,12 @@
+.ant-statistic-title{
+    font-size: 28px !important;
+    /* color:aqua !important; */
+}
+.ant-statistic-content-value{
+    font-size: 26px !important;
+    text-align: center !important;
+    justify-content: center !important;
+    margin: auto;
+    width: 100%;
+    /* color:aqua !important; */
+}

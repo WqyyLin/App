@@ -25,6 +25,8 @@ import CountUp from 'react-countup';
 import { Card } from 'antd';
 import Footer from "../../../components/footer"
 import { valueToNode } from '@babel/types';
+import { walletStyle } from '../../../js/wallet';
+import "../wallet/wallet.css"
 const { Meta } = Card;
 // 定义一个接口，包含title, description, value, onChange四个属性
 interface SettingItemProps {
@@ -118,7 +120,7 @@ const SettingItem: React.FC<SettingItemProps> = ({
     }, []); // Pass an empty array as dependency to run only once
 
     useEffect(() => {
-        fetch("http://localhost:8080/app/wallet")
+        fetch("/wallet/"+sessionStorage.getItem("email"))
             .then((response) => {
                 if (response.ok) {
                     return response.json();
@@ -190,7 +192,7 @@ const SettingItem: React.FC<SettingItemProps> = ({
             >
             <Row gutter={80}>
                 <Col span={40} style={{display:"inline-block",marginLeft:"auto",marginRight:"auto"}}>
-                    <Statistic title="My Balance" value={money as unknown as import("f:/APP/teamApp/node_modules/antd/es/statistic/utils").valueType} formatter={formatter}/>
+                    <Statistic title="My Balance" value={money as unknown as import("../../../../node_modules/antd/es/statistic/utils").valueType} formatter={formatter}  style={walletStyle}/>
                 </Col>
              </Row>
              {/* <Meta title="Europe Street beat" description="www.instagram.com" /> */}

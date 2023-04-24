@@ -39,7 +39,7 @@ interface DataType {
 }
 
 interface Information {
-    groundName: any;
+    facilities: any;
 }
 
 interface Facility {
@@ -125,10 +125,10 @@ const UserFacility: React.FC = () => {
     const {
         token: {colorBgContainer},
     } = theme.useToken();
-    const currentSession = sessionStorage.getItem('email');
+    const currentSession = sessionStorage.getItem('status');
 
     useEffect(() => {
-        fetch("http://localhost:8080/user/manager/facilities")
+        fetch("/facilities")
             .then((response) => {
                 if (response.ok) {
                     return response.json();
@@ -139,11 +139,11 @@ const UserFacility: React.FC = () => {
             .then((response) => {
                 console.log(currentSession)
                 console.log(response)
-                setInfo(response.groundName);
+                setInfo(response.facilities);
                 setInitLoading(false);
-                setData(response.groundName);
-                setList(response.groundName);
-                console.log(response.groundName)
+                setData(response.facilities);
+                setList(response.facilities);
+                console.log(response.facilities)
             })
             .catch((error) => {
                 setError(error);
@@ -273,7 +273,7 @@ const UserFacility: React.FC = () => {
                                         description={
                                             <div>
                                             <p style={{fontSize:18}}>{item.Ad_describtion}</p>
-                                            <h1>Time: {item.starttime}:00 ~ {item.endtime}:00</h1>
+                                            <h1>Time: {item.starttime}~{item.endtime}</h1>
                                             <p></p>
                                             </div>
                                     }

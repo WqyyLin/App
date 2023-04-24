@@ -134,7 +134,7 @@ const FacilityManager: React.FC<FacilityManagerProps> = (props) => {
     } = theme.useToken();
     useEffect(() => {
         fetch("http://localhost:8080/user/manager/facilities")
-            .then((response) => {`0000000000`
+            .then((response) => {
                 if (response.ok) {
                     return response.json();
                 } else {
@@ -261,4 +261,4 @@ const FacilityManager: React.FC<FacilityManagerProps> = (props) => {
     );
 };
 
-export default FacilityManager;
+export default FacilityManager;// eslint-disable-next-line @typescript-eslint/no-unused-expressions 

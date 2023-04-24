@@ -24,18 +24,13 @@ import { green } from '@material-ui/core/colors';
 import Box from '@material-ui/core/Box';
 import CssBaseline from "@material-ui/core/CssBaseline";
 import AppsTwoToneIcon from '@material-ui/icons/AppsTwoTone';
-import CardMembershipTwoToneIcon from '@material-ui/icons/CardMembershipTwoTone';
-import SettingsApplicationsTwoToneIcon from '@material-ui/icons/SettingsApplicationsTwoTone';
-import CreditCardTwoToneIcon from '@material-ui/icons/CreditCardTwoTone';
-import GroupTwoToneIcon from '@material-ui/icons/GroupTwoTone';
-import RedoTwoToneIcon from '@material-ui/icons/RedoTwoTone';
 import WorkOutlineTwoToneIcon from '@material-ui/icons/WorkOutlineTwoTone';
 import { AppBar,Toolbar,Badge,Grid,ThemeProvider } from '@material-ui/core';
 import { Divider,List,ListItem,ListItemText,ListItemSecondaryAction,IconButton } from '@material-ui/core'
 import { linkStyle } from "../../../js/settingsStyle";
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-import Footer from "../../../components/footer"
+import Scanning from '../code/scan';
 const {Content} = Layout;
 const {Meta} = Card;
 const {Option} = Select;
@@ -214,9 +209,9 @@ const UserInfo: React.FC = () => {
                     <IconButton component={Link} to="/user/info" size='medium' style={{display:'block',left:220}}>
                         <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="22025" width="25" height="25" style={{position:'relative', top:0}}><path d="M1020.8 435.2l-192-384c-6.4-12.8-16-19.2-28.8-19.2h-128c-16 0-28.8 9.6-32 25.6-9.6 57.6-67.2 102.4-128 102.4s-115.2-44.8-128-102.4c-3.2-16-16-25.6-32-25.6H224c-12.8 0-22.4 6.4-28.8 19.2l-192 384c-3.2 6.4-3.2 16 0 22.4 3.2 9.6 9.6 16 16 19.2L192 563.2V896c0 54.4 41.6 96 96 96h448c54.4 0 96-41.6 96-96V563.2l172.8-86.4c16-9.6 22.4-28.8 16-41.6z m-195.2 60.8c-6.4-9.6-12.8-16-25.6-16-19.2 0-32 12.8-32 32v384c0 19.2-12.8 32-32 32H288c-19.2 0-32-12.8-32-32V512c0-19.2-12.8-32-32-32-12.8 0-19.2 6.4-25.6 16l-121.6-60.8L243.2 96h83.2c25.6 76.8 99.2 128 185.6 128 83.2 0 156.8-51.2 185.6-128h83.2l169.6 339.2-124.8 60.8z" p-id="22026"></path></svg>
                     </IconButton>  
-                    <IconButton component={Link} to="/user/info" size='medium' style={{display:'block',marginLeft:'auto'}}>
-                        <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="23019" width="30" height="30" style={{position:'relative', top:0}}><path d="M192 416C172.8 416 160 403.2 160 384L160 256c0-51.2 44.8-96 96-96l128 0c19.2 0 32 12.8 32 32S403.2 224 384 224L256 224C236.8 224 224 236.8 224 256l0 128C224 403.2 211.2 416 192 416z" fill="#272636" p-id="23020"></path><path d="M384 864 256 864c-51.2 0-96-44.8-96-96l0-128c0-19.2 12.8-32 32-32S224 620.8 224 640l0 128c0 19.2 12.8 32 32 32l128 0c19.2 0 32 12.8 32 32S403.2 864 384 864z" fill="#272636" p-id="23021"></path><path d="M768 864l-128 0c-19.2 0-32-12.8-32-32s12.8-32 32-32l128 0c19.2 0 32-12.8 32-32l0-128c0-19.2 12.8-32 32-32s32 12.8 32 32l0 128C864 819.2 819.2 864 768 864z" fill="#272636" p-id="23022"></path><path d="M832 416c-19.2 0-32-12.8-32-32L800 256c0-19.2-12.8-32-32-32l-128 0C620.8 224 608 211.2 608 192S620.8 160 640 160l128 0c51.2 0 96 44.8 96 96l0 128C864 403.2 851.2 416 832 416z" fill="#272636" p-id="23023"></path><path d="M832 544 192 544C172.8 544 160 531.2 160 512S172.8 480 192 480l640 0c19.2 0 32 12.8 32 32S851.2 544 832 544z" fill="#272636" p-id="23024"></path></svg>
-                    </IconButton>                     
+                        <IconButton component={Scanning} size='medium' style={{display:'block',marginLeft:'auto'}}>
+                            <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="23019" width="30" height="30" style={{position:'relative', top:0}}><path d="M192 416C172.8 416 160 403.2 160 384L160 256c0-51.2 44.8-96 96-96l128 0c19.2 0 32 12.8 32 32S403.2 224 384 224L256 224C236.8 224 224 236.8 224 256l0 128C224 403.2 211.2 416 192 416z" fill="#272636" p-id="23020"></path><path d="M384 864 256 864c-51.2 0-96-44.8-96-96l0-128c0-19.2 12.8-32 32-32S224 620.8 224 640l0 128c0 19.2 12.8 32 32 32l128 0c19.2 0 32 12.8 32 32S403.2 864 384 864z" fill="#272636" p-id="23021"></path><path d="M768 864l-128 0c-19.2 0-32-12.8-32-32s12.8-32 32-32l128 0c19.2 0 32-12.8 32-32l0-128c0-19.2 12.8-32 32-32s32 12.8 32 32l0 128C864 819.2 819.2 864 768 864z" fill="#272636" p-id="23022"></path><path d="M832 416c-19.2 0-32-12.8-32-32L800 256c0-19.2-12.8-32-32-32l-128 0C620.8 224 608 211.2 608 192S620.8 160 640 160l128 0c51.2 0 96 44.8 96 96l0 128C864 403.2 851.2 416 832 416z" fill="#272636" p-id="23023"></path><path d="M832 544 192 544C172.8 544 160 531.2 160 512S172.8 480 192 480l640 0c19.2 0 32 12.8 32 32S851.2 544 832 544z" fill="#272636" p-id="23024"></path></svg>
+                        </IconButton>      
                 </Toolbar>
             </AppBar> 
             <Toolbar />
@@ -227,7 +222,7 @@ const UserInfo: React.FC = () => {
                         <ListItem button divider style={{marginTop:-5,display:'flex',alignItems:'center',paddingBottom:10}}>
                             <Avatar alt="Remy Sharp" src={m} style={{marginRight:10}}/>
                                 <Typography variant="body2" color="textPrimary" component="p" gutterBottom style={{textAlign:'center',fontSize: 20, fontFamily:'angltrr'}}>
-                                        Inversion
+                                        {sessionStorage.getItem('name')}
                                 </Typography>
                      
                                 <Link to='/user/info/edit' style={linkStyle}><ListItemText primary={<span style={{textAlign: 'left' ,fontSize: 20, fontFamily:'angltrr'}}><svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2295" width="30" height="30"><path d="M816.277333 165.056a128 128 0 0 1 0 181.013333L309.653333 852.693333a21.333333 21.333333 0 0 1-15.082666 6.229334H165.056a42.666667 42.666667 0 0 1-42.666667-42.666667v-129.493333a21.333333 21.333333 0 0 1 6.229334-15.104L635.306667 165.056a128 128 0 0 1 180.992 0z m-45.226666 45.226667a64 64 0 0 0-87.786667-2.56l-2.752 2.56L188.885333 701.930667a8.533333 8.533333 0 0 0-2.496 6.037333v78.464c0 4.714667 3.818667 8.533333 8.533334 8.533333h78.421333a8.533333 8.533333 0 0 0 6.037333-2.517333l491.648-491.605333a64 64 0 0 0 2.581334-87.786667l-2.56-2.730667z" fill="#333333" p-id="2296"></path><path d="M590.016 210.304l181.013333 181.013333-45.248 45.248-181.013333-181.013333z" fill="#333333" p-id="2297"></path><path d="M490.666667 795.733333m8.533333 0l345.6 0q8.533333 0 8.533333 8.533334l0 46.933333q0 8.533333-8.533333 8.533333l-345.6 0q-8.533333 0-8.533333-8.533333l0-46.933333q0-8.533333 8.533333-8.533334Z" fill="#333333" p-id="2298"></path><path d="M661.333333 667.733333m8.533334 0l174.933333 0q8.533333 0 8.533333 8.533334l0 46.933333q0 8.533333-8.533333 8.533333l-174.933333 0q-8.533333 0-8.533334-8.533333l0-46.933333q0-8.533333 8.533334-8.533334Z" fill="#333333" p-id="2299"></path></svg></span>}/>

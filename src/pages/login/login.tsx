@@ -80,7 +80,8 @@ const LoginPage: React.FC = () => {
     // }
 
     const onFinish = (values: any) => {
-        fetch('http://localhost:8080/user/login', {
+        values.status = sessionStorage.getItem("status");
+        fetch('/user/login/'+sessionStorage.getItem("status"), {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -104,6 +105,7 @@ const LoginPage: React.FC = () => {
                     sessionStorage.setItem("email", data.user.email);
                     sessionStorage.setItem("id",data.user.id);
                     sessionStorage.setItem("name",data.user.name);
+                    sessionStorage.setItem("status",data.status);
                     //sessionStorage.setItem("token", data.token);
                     console.log(sessionStorage.getItem('email'))
                     // return <Navigate to="/user/facility"/>;

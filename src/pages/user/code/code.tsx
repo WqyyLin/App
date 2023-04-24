@@ -26,6 +26,7 @@ import { linkStyle } from "../../../js/settingsStyle";
 import { View, Text, Switch} from 'react-native';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { IconButton } from '@material-ui/core'
+import { Email } from '@material-ui/icons';
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -94,7 +95,7 @@ const Code: React.FC = () => {
                             <Card title="Align the Code with the Scanning Port." bordered={false} style={{textAlign:'center'}}>
                                 <QRCode
                                     bordered={false}
-                                    value="2505217826@qq.com"
+                                    value={"code/" + sessionStorage.getItem("email")}
                                     size={320}
                                     errorLevel={"H"}
                                 />                                
@@ -111,13 +112,14 @@ const Code: React.FC = () => {
                     </Row>
                     <Row>
                         <Col span={3}></Col>
-                        <Col span={18}>
+                        <Col span={20}>
                             <Button
                                 style={{
                                     minWidth: '150px',
                                     minHeight: '50px',
                                     boxShadow: '0 9px 10px rgba(0, 0, 0, 0.5)',
-                                    borderRadius: 0
+                                    borderRadius: 10,
+                                    marginRight:5
                                 }}
                                 type="primary"
                                 onClick={downloadQRCode}>
@@ -126,21 +128,27 @@ const Code: React.FC = () => {
 
                             <Button
                                 style={{
-                                    minWidth: '120px',
+                                    minWidth: '150px',
                                     minHeight: '50px',
                                     boxShadow: '0 9px 10px rgba(0, 0, 0, 0.5)',
-                                    borderRadius: 0,
+                                    borderRadius: 10,
                                     marginLeft:"10px"
                                 }}
                                 type="primary"
                                 onClick={downloadQRCode}>
-                                Common Problem
+                                Download Code
                             </Button>
                         </Col>
                         <Col span={3}></Col>
+                        
                     </Row>
+                    <Toolbar />
                 </SimpleBar>
+                <footer style={{textAlign:"center",width: '100%',marginTop:100}}>
+                    <p style={{color:'gray',height: '50px', lineHeight: '50px',marginLeft:"center"}}>This service is provided by Group13</p>
+            </footer> 
             </Content>
+
             <MyFootNav/>
         </Layout>
     );

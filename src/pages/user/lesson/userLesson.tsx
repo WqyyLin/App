@@ -17,19 +17,16 @@ const {Search} = Input;
 type TabPosition = 'left' | 'right' | 'top' | 'bottom';
 
 type MenuItem = Required<MenuProps>['items'][number];
+
 interface Information {
-    groundName: any;
+    lessons: any;
 }
 
-interface Facility {
-    Ad_title: string;
-    activity: any;
-    name: string;
-    groundnumber: number;
-    Ad_describtion: string;
-    endtime: number;
-    starttime: number;
-    holdpeople: number;
+interface Lesson {
+    lessons: any;
+    facility:string;
+    id: number;
+    title: string;
 }
 
 const contentStyle: React.CSSProperties = {
@@ -68,194 +65,28 @@ function getItem(
     } as MenuItem;
 }
 
-
-const weekTabs: TabsProps['items'] = [
-    {
-        key: 'All',
-        label: `All`,
-        children:
-        <SimpleBar style={{maxHeight: 890}}>
-            {
-                new Array(30).fill(null).map((_, i) => {
-                    return <Carousel>
-                        <div>
-                            <h3 style={contentStyle}>lesson{i+1}</h3>
-                        </div>
-                    </Carousel>
-                })
-            }
-        </SimpleBar>
+const LessonList = ({ lessons }: { lessons: any }) => {
+    return (
+      <div>
+        {/* {lessons.map() => (
+          <div key={lesson.id}>{lesson.title}</div>
+        ))} */}
+        {Object.keys(lessons).map(key=>{
+            return(<div key={key}>
+                <h2>{key}:{lessons[key]}</h2>
+            </div>)
+        })}
+      </div>
+    );
+  };
 
 
-    },
-    {
-        key: 'Mo',
-        label: `Mo`,
-        children:
-            <SimpleBar style={{maxHeight: 890}}>
-                {
-                    new Array(30).fill(null).map((_, i) => {
-                        return <Carousel>
-                            <div>
-                                <h3 style={contentStyle}>lesson{i+1}</h3>
-                            </div>
-                        </Carousel>
-                    })
-                }
-            </SimpleBar>
-    },
-    {
-        key: 'Tu',
-        label: `Tu`,
-        children:
-            <SimpleBar style={{maxHeight: 890}}>
-                {
-                    new Array(30).fill(null).map((_, i) => {
-                        return <Carousel>
-                            <div>
-                                <h3 style={contentStyle}>lesson{i+1}</h3>
-                            </div>
-                        </Carousel>
-                    })
-                }
-            </SimpleBar>
-    },
-    {
-        key: 'We',
-        label: `We`,
-        children:
-            <SimpleBar style={{maxHeight: 890}}>
-                {
-                    new Array(30).fill(null).map((_, i) => {
-                        return <Carousel>
-                            <div>
-                                <h3 style={contentStyle}>lesson{i+1}</h3>
-                            </div>
-                        </Carousel>
-                    })
-                }
-            </SimpleBar>
-    },
-    {
-        key: 'Th',
-        label: `Th`,
-        children:
-            <SimpleBar style={{maxHeight: 890}}>
-                {
-                    new Array(30).fill(null).map((_, i) => {
-                        return <Carousel>
-                            <div>
-                                <h3 style={contentStyle}>lesson{i+1}</h3>
-                            </div>
-                        </Carousel>
-                    })
-                }
-            </SimpleBar>
-    },
-    {
-        key: 'Fr',
-        label: `Fr`,
-        children:
-            <SimpleBar style={{maxHeight: 890}}>
-                {
-                    new Array(30).fill(null).map((_, i) => {
-                        return <Carousel>
-                            <div>
-                                <h3 style={contentStyle}>lesson{i+1}</h3>
-                            </div>
-                        </Carousel>
-                    })
-                }
-            </SimpleBar>
-    },
-    {
-        key: 'Sa',
-        label: `Sa`,
-        children:
-            <SimpleBar style={{maxHeight: 890}}>
-                {
-                    new Array(30).fill(null).map((_, i) => {
-                        return <Carousel>
-                            <div>
-                                <h3 style={contentStyle}>lesson{i+1}</h3>
-                            </div>
-                        </Carousel>
-                    })
-                }
-            </SimpleBar>
-    },
-    {
-        key: 'Su',
-        label: `Su`,
-        children:
-            <SimpleBar style={{maxHeight: 890}}>
-                {
-                    new Array(30).fill(null).map((_, i) => {
-                        return <Carousel>
-                            <div>
-                                <h3 style={contentStyle}>lesson{i+1}</h3>
-                            </div>
-                        </Carousel>
-                    })
-                }
-            </SimpleBar>
-    },
-];
 
-const facilityTabs: TabsProps['items'] = [
-    {
-        key: 'All',
-        label: `All`,
-        children:
-            <Tabs
-                style={{marginRight: "10%"}}
-                defaultActiveKey="1"
-                items={weekTabs}
-                onChange={onChange}
-            />
-    },
-    {
-        key: 'Swimming pool',
-        label: `Swimming pool`,
-        children: <Tabs
-            defaultActiveKey="1"
-            items={weekTabs}
-            onChange={onChange}
-        />,
-    },
-    {
-        key: 'Fitness room',
-        label: `Fitness room`,
-        children: <Tabs
-            defaultActiveKey="1"
-            items={weekTabs}
-            onChange={onChange}
-        />,
-    },
-    {
-        key: 'Squash courts',
-        label: `Squash courts`,
-        children: <Tabs
-            defaultActiveKey="1"
-            items={weekTabs}
-            onChange={onChange}
-        />,
-    },
-    {
-        key: 'Sports hall',
-        label: `Sports hall`,
-        children: <Tabs
-            defaultActiveKey="1"
-            items={weekTabs}
-            onChange={onChange}
-        />,
-    }
-];
 
 const UserLesson: React.FC = () => {
     const [screenWidth, setScreenWidth] = useState(window.innerWidth);
     const [screenHeight, setScreenHeight] = useState(window.innerHeight);
-
+    const [lessons, setLessons] = useState();
     useEffect(() => {
         // Define a function to handle window resize
         function handleResize() {
@@ -272,41 +103,233 @@ const UserLesson: React.FC = () => {
             window.removeEventListener("resize", handleResize);
         };
     }, []); // Pass an empty array as dependency to run only once
+
     const [mode, setMode] = useState<TabPosition>('top');
     const [form] = Form.useForm();
     const [infos, setInfo] = useState<Information>();
+
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<Error | null>(null);
     const {
         token: {colorBgContainer},
     } = theme.useToken();
-    // useEffect(() => {
-    //     fetch("http://localhost:8080/user/manager/facilities")
-    //         .then((response) => {
-    //             if (response.ok) {
-    //                 return response.json();
-    //             } else {
-    //                 throw response;
-    //             }
-    //         })
-    //         .then((data) => {
-    //             setInfo(data);
-    //         })
-    //         .catch((error) => {
-    //             setError(error);
-    //         })
-    //         .finally(() => {
-    //             setLoading(false);
-    //         });
-    // }, []);
-    //
-    // if (loading) {
-    //     return <div>Loading...</div>;
-    // }
-    //
-    // if (error) {
-    //     return <div>Error!</div>;
-    // }
+    const currentSession = sessionStorage.getItem('email');
+
+    useEffect(() => {
+        fetch("/lessons")
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            })
+            .then((response) => {
+                console.log(response)
+                setInfo(response.lessons)
+                setLessons(response.lessons)
+                console.log(response.lessons)             
+            })
+            .catch((error) => {
+                setError(error);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
+    }, []);
+
+
+    const weekTabs: TabsProps['items'] = [
+        {
+            key: 'All',
+            label: `All`,
+            children:
+            <SimpleBar style={{maxHeight: 890}}>
+                {/* {
+                    new Array(30).fill(null).map((_, i) => {
+                        return <Carousel>
+                            <div>
+                                <h3 style={contentStyle}>lesson{i+1}</h3>
+                            </div>
+                        </Carousel>
+                    })
+                } */}
+                <LessonList lessons={lessons} />
+            </SimpleBar>
+    
+    
+        },
+        {
+            key: 'Mo',
+            label: `Mo`,
+            children:
+                <SimpleBar style={{maxHeight: 890}}>
+                    {/* {
+                        new Array(30).fill(null).map((_, i) => {
+                            return <Carousel>
+                                <div>
+                                    <h3 style={contentStyle}>lesson{i+1}</h3>
+                                </div>
+                            </Carousel>
+                        })
+                    } */}
+                    <LessonList lessons={lessons} />
+                </SimpleBar>
+        },
+        {
+            key: 'Tu',
+            label: `Tu`,
+            children:
+                <SimpleBar style={{maxHeight: 890}}>
+                    {/* {
+                        new Array(30).fill(null).map((_, i) => {
+                            return <Carousel>
+                                <div>
+                                    <h3 style={contentStyle}>lesson{i+1}</h3>
+                                </div>
+                            </Carousel>
+                        })
+                    } */}
+                    <LessonList lessons={lessons} />
+                </SimpleBar>
+        },
+        {
+            key: 'We',
+            label: `We`,
+            children:
+                <SimpleBar style={{maxHeight: 890}}>
+                    {/* {
+                        new Array(30).fill(null).map((_, i) => {
+                            return <Carousel>
+                                <div>
+                                    <h3 style={contentStyle}>lesson{i+1}</h3>
+                                </div>
+                            </Carousel>
+                        })
+                    } */}
+                    <LessonList lessons={lessons} />
+                </SimpleBar>
+        },
+        {
+            key: 'Th',
+            label: `Th`,
+            children:
+                <SimpleBar style={{maxHeight: 890}}>
+                    {/* {
+                        new Array(30).fill(null).map((_, i) => {
+                            return <Carousel>
+                                <div>
+                                    <h3 style={contentStyle}>lesson{i+1}</h3>
+                                </div>
+                            </Carousel>
+                        })
+                    } */}
+                    <LessonList lessons={lessons} />
+                </SimpleBar>
+        },
+        {
+            key: 'Fr',
+            label: `Fr`,
+            children:
+                <SimpleBar style={{maxHeight: 890}}>
+                    {/* {
+                        new Array(30).fill(null).map((_, i) => {
+                            return <Carousel>
+                                <div>
+                                    <h3 style={contentStyle}>lesson{i+1}</h3>
+                                </div>
+                            </Carousel>
+                        })
+                    } */}
+                    <LessonList lessons={lessons} />
+                </SimpleBar>
+        },
+        {
+            key: 'Sa',
+            label: `Sa`,
+            children:
+                <SimpleBar style={{maxHeight: 890}}>
+                    {/* {
+                        new Array(30).fill(null).map((_, i) => {
+                            return <Carousel>
+                                <div>
+                                    <h3 style={contentStyle}>lesson{i+1}</h3>
+                                </div>
+                            </Carousel>
+                        })
+                    } */}
+                    <LessonList lessons={lessons} />
+                </SimpleBar>
+        },
+        {
+            key: 'Su',
+            label: `Su`,
+            children:
+                <SimpleBar style={{maxHeight: 890}}>
+                    {/* {
+                        new Array(30).fill(null).map((_, i) => {
+                            return <Carousel>
+                                <div>
+                                    <h3 style={contentStyle}>lesson{i+1}</h3>
+                                </div>
+                            </Carousel>
+                        })
+                    } */}
+                    <LessonList lessons={lessons} />
+                </SimpleBar>
+        },
+    ];
+    
+    const facilityTabs: TabsProps['items'] = [
+        {
+            key: 'All',
+            label: `All`,
+            children:
+                <Tabs
+                    style={{marginRight: "10%"}}
+                    defaultActiveKey="1"
+                    items={weekTabs}
+                    onChange={onChange}
+                />
+        },
+        {
+            key: 'Swimming pool',
+            label: `Swimming pool`,
+            children: <Tabs
+                defaultActiveKey="1"
+                items={weekTabs}
+                onChange={onChange}
+            />,
+        },
+        {
+            key: 'Fitness room',
+            label: `Fitness room`,
+            children: <Tabs
+                defaultActiveKey="1"
+                items={weekTabs}
+                onChange={onChange}
+            />,
+        },
+        {
+            key: 'Squash courts',
+            label: `Squash courts`,
+            children: <Tabs
+                defaultActiveKey="1"
+                items={weekTabs}
+                onChange={onChange}
+            />,
+        },
+        {
+            key: 'Sports hall',
+            label: `Sports hall`,
+            children: <Tabs
+                defaultActiveKey="1"
+                items={weekTabs}
+                onChange={onChange}
+            />,
+        }
+    ];
+    
 
     const onClick: MenuProps['onClick'] = (e) => {
         console.log('click ', e);

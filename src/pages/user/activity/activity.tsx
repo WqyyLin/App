@@ -41,7 +41,7 @@ interface DataType {
 }
 
 interface Information {
-    groundName: any;
+    facilities: any;
 }
 
 interface Facility {
@@ -129,7 +129,7 @@ const Activity: React.FC = () => {
         token: {colorBgContainer},
     } = theme.useToken();
     useEffect(() => {
-        fetch("http://localhost:8080/user/manager/facilities")
+        fetch("/facilities")
             .then((response) => {
                 if (response.ok) {
                     return response.json();
@@ -139,11 +139,11 @@ const Activity: React.FC = () => {
             })
             .then((response) => {
                 console.log(response)
-                setInfo(response.groundName);
+                setInfo(response.facilities);
                 setInitLoading(false);
-                setData(response.groundName);
-                setList(response.groundName);
-                console.log(response.groundName)
+                setData(response.facilities);
+                setList(response.facilities);
+                console.log(response.facilities)
             })
             .catch((error) => {
                 setError(error);

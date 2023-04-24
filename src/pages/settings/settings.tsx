@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 //import { useNavigation } from '@react-navigation/native';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-import Layout from 'antd'
+import Layout, { message } from 'antd'
 import {Link} from "react-router-dom";
 import { Dimensions, Pressable } from 'react-native';
 import {Settings} from '../../js/settings'
@@ -20,6 +20,7 @@ import Slide from '@material-ui/core/Slide';
 import { TransitionProps } from '@material-ui/core/transitions';
 import { AppBar,Toolbar } from '@material-ui/core';
 import { linkStyle } from "../../js/settingsStyle";
+import Scanning from '../user/code/scan';
 // 定义一个接口，包含title, description, value, onChange四个属性
 interface SettingItemProps {
     title: string;
@@ -78,6 +79,8 @@ const SettingItem: React.FC<SettingItemProps> = ({
     const [screenWidth, setScreenWidth] = useState(window.innerWidth);
     const [screenHeight, setScreenHeight] = useState(window.innerHeight);
     const classes = useStyles();
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<Error | null>(null);
     useEffect(() => {
         // Define a function to handle window resize
         function handleResize() {
@@ -104,8 +107,31 @@ const SettingItem: React.FC<SettingItemProps> = ({
 
   // 定义一个退出登录的函数
   const handleLogout = () => {
+    fetch("/user/logout/"+sessionStorage.getItem("status"), {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+          })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            })
+            .then((response) => {
+              sessionStorage.setItem("status",response.status)
+              console.log(response.message)
+            })
+            .catch((error) => {
+                setError(error);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     // 这里可以调用你的api或者其他逻辑来实现退出登录
-    alert('退出登录成功');
+    // alert('退出登录成功');
   };
 
   const [open, setOpen] = React.useState(false);
@@ -117,6 +143,7 @@ const SettingItem: React.FC<SettingItemProps> = ({
   const handleClose = () => {
     setOpen(false);
   };
+
   return (
     <Settings style={{width:screenWidth, height:screenHeight}}>
     <View style={{ flex: 1}} >
@@ -242,7 +269,7 @@ const SettingItem: React.FC<SettingItemProps> = ({
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleClose} color="primary" component={Link} to="/register">
+          <Button onClick={handleLogout} color="primary" component={Link} to="/register">
             Yes
           </Button>
         </DialogActions>
