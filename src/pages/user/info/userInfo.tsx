@@ -35,7 +35,7 @@ import { Divider,List,ListItem,ListItemText,ListItemSecondaryAction,IconButton }
 import { linkStyle } from "../../../js/settingsStyle";
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-
+import Footer from "../../../components/footer"
 const {Content} = Layout;
 const {Meta} = Card;
 const {Option} = Select;
@@ -200,34 +200,6 @@ const UserInfo: React.FC = () => {
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<Error | null>(null);
 
-    // useEffect(() => {
-    //     fetch("http://localhost:8080/user/manager/facilities")
-    //         .then((response) => {
-    //             if (response.ok) {
-    //                 return response.json();
-    //             } else {
-    //                 throw response;
-    //             }
-    //         })
-    //         .then((data) => {
-    //             setInfo(data);
-    //         })
-    //         .catch((error) => {
-    //             setError(error);
-    //         })
-    //         .finally(() => {
-    //             setLoading(false);
-    //         });
-    // }, []);
-
-    // if (loading) {
-    //     return <div>Loading...</div>;
-    // }
-    //
-    // if (error) {
-    //     return <div>Error!</div>;
-    // }
-
     return (
         <Layout style={{width: screenWidth, height: screenHeight}}>
             <AppBar position="fixed" color="default">
@@ -252,8 +224,8 @@ const UserInfo: React.FC = () => {
 
             <List component="nav" aria-label="general folders" style={{ backgroundColor:'whitesmoke',marginBottom: 5, marginTop:5, textAlign:'center'}}>
                         <Link to='/user/info/zone' style={linkStyle}>
-                        <ListItem button divider style={{marginTop:-5,display:'flex',alignItems:'center'}}>
-                            <Avatar alt="Remy Sharp" src={m} />
+                        <ListItem button divider style={{marginTop:-5,display:'flex',alignItems:'center',paddingBottom:10}}>
+                            <Avatar alt="Remy Sharp" src={m} style={{marginRight:10}}/>
                                 <Typography variant="body2" color="textPrimary" component="p" gutterBottom style={{textAlign:'center',fontSize: 20, fontFamily:'angltrr'}}>
                                         Inversion
                                 </Typography>
@@ -304,7 +276,7 @@ const UserInfo: React.FC = () => {
                             </Grid>
                             </Grid>
 
-                            <Grid container alignItems="center">
+                            <Grid container alignItems="center" style={{marginTop: 10}}>
                                 <Grid item xs={3} spacing={3}>
                                     <div style={OtherStyle}>
                                         <Link to='/user/upload' style={{color:'#2177b8'}}>
@@ -374,7 +346,7 @@ const UserInfo: React.FC = () => {
                                 </Grid>
                                 <Grid item xs={3} spacing={3}>
                                     <div style={OtherStyle}>
-                                        <Link to='/user/collections' style={{color:'#2177b8'}}>
+                                        <Link to='/user/wallet' style={{color:'#2177b8'}}>
                                         <br/>   
                                         <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8207" width="30" height="30"><path d="M715.1 637.9L245.3 490.1c-10.5-3.3-16.4-14.6-13.1-25.1l76.7-243.7c3.3-10.5 14.6-16.4 25.1-13.1L803.8 356c10.5 3.3 16.4 14.6 13.1 25.1l-76.7 243.7c-3.3 10.5-14.6 16.4-25.1 13.1z" fill="#F9CC12" p-id="8208"></path><path d="M721.1 658.8c-4 0-8.1-0.6-12-1.9L239.3 509.2c-10.2-3.2-18.5-10.2-23.4-19.7-4.9-9.5-5.9-20.3-2.7-30.5l76.7-243.7c3.2-10.2 10.2-18.5 19.7-23.4 9.5-4.9 20.3-5.9 30.5-2.7L809.9 337c10.2 3.2 18.5 10.2 23.4 19.7 4.9 9.5 5.9 20.3 2.7 30.5l-76.7 243.7c-3.2 10.2-10.2 18.5-19.7 23.4-5.8 3-12.1 4.5-18.5 4.5zM251.4 471s0 0.1 0 0l469.8 147.8v-0.1L797.8 375 328 227.3v0.1L251.4 471z" fill="#444D68" p-id="8209"></path><path d="M848.8 802.9H228.3c-22 0-40-18-40-40V380.4c0-22 18-40 40-40h620.5c22 0 40 18 40 40V763c0 21.9-18 39.9-40 39.9z" fill="#186FED" p-id="8210"></path><path d="M848.8 822.9H228.3c-33.1 0-60-26.9-60-60V380.4c0-33.1 26.9-60 60-60h620.5c33.1 0 60 26.9 60 60V763c0 33-26.9 59.9-60 59.9zM228.3 360.4c-11 0-20 9-20 20V763c0 11 9 20 20 20h620.5c11 0 20-9 20-20V380.4c0-11-9-20-20-20H228.3z" fill="#444D68" p-id="8211"></path><path d="M888.8 490.7H675.6c-45.1 0-82 36.9-82 82s36.9 82 82 82h213.2v-164z" fill="#F9CC12" p-id="8212"></path><path d="M908.8 674.7H675.6c-56.2 0-102-45.8-102-102s45.8-102 102-102h233.2v204z m-233.2-164c-34.2 0-62 27.8-62 62s27.8 62 62 62h193.2v-124H675.6z" fill="#444D68" p-id="8213"></path><path d="M664.6 571.7m-23.9 0a23.9 23.9 0 1 0 47.8 0 23.9 23.9 0 1 0-47.8 0Z" fill="#444D68" p-id="8214"></path></svg>
                                         <p style={{margin: 0,color:'black'}}>Wallet</p></Link>
@@ -401,11 +373,28 @@ const UserInfo: React.FC = () => {
                                             <ListItemText primary={<span style={{textAlign: 'left' ,fontSize: 17, fontFamily:'angltrr'}}>Contact Us</span>}/>
                                             <ListItemSecondaryAction> <IconButton edge="end" aria-label="arrow"> <ArrowForwardIosIcon /> </IconButton> </ListItemSecondaryAction>
                                         </ListItem>
+                                        
                                         <ListItem button divider>
                                         <svg viewBox="0 0 1026 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="13783" width="25" height="25" style={{position:'relative', top:0,left:-5}}><path d="M456.371841 413.588089C129.296032 410.186112 30.638693 191.487577 2.936878 97.204209A75.815492 75.815492 0 0 1 16.058791 29.650661 75.329495 75.329495 0 0 1 76.808384 0.00486a481.136777 481.136777 0 0 1 449.060991 308.607933 77.273482 77.273482 0 0 1-7.289951 71.927518 74.843499 74.843499 0 0 1-62.207583 33.047778zM72.92041 77.278342C101.594217 174.477691 189.073631 340.202581 456.371841 340.202581a396.573343 396.573343 0 0 0-381.021448-267.298209l-37.421749 14.579902z" fill="#556bee" p-id="13784"></path><path d="M572.039066 412.616096h-8.747942a73.385508 73.385508 0 0 1-60.263596-34.019772 78.245476 78.245476 0 0 1-5.345964-73.871505C631.816665-3.883114 867.03909-8.257085 960.836461 4.378831a73.871505 73.871505 0 0 1 54.431636 37.907746A78.245476 78.245476 0 0 1 1020.614061 112.756105a476.762806 476.762806 0 0 1-448.574995 299.859991z m332.421773-340.197721c-100.115329 0-242.998372 43.25371-340.197721 260.494255a4.373971 4.373971 0 0 0 0 5.345964 401.919307 401.919307 0 0 0 387.339405-255.634288 5.345964 5.345964 0 0 0 0-5.83196 343.113701 343.113701 0 0 0-47.141684-2.915981z" fill="#556bee" p-id="13785"></path><path d="M512.747463 1024a36.449756 36.449756 0 0 1-36.449756-36.449756V340.202581a36.449756 36.449756 0 0 1 72.899512 0v647.347663a36.935753 36.935753 0 0 1-36.449756 36.449756z" fill="#556bee" p-id="13786"></path></svg>
                                             <ListItemText primary={<span style={{textAlign: 'left' ,fontSize: 17, fontFamily:'angltrr'}}>Youth Guardian</span>}/>
                                             <ListItemSecondaryAction> <IconButton edge="end" aria-label="arrow"> <ArrowForwardIosIcon /> </IconButton> </ListItemSecondaryAction>
                                         </ListItem>
+
+                                        <Link to='/user/code' style={linkStyle}>
+                                            <ListItem button divider>
+                                            <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8495" width="25" height="25" style={{position:'relative', top:0,left:-5}}><path d="M752.8 143.2c3.2 0 6.3 1.3 8.5 3.5L955.6 341c5.5 5.5 5.5 14.3 0 19.8L864 452.5l-96-96V895H448v1H256V357.5l-96 96-91.6-91.6c-5.5-5.5-5.5-14.3 0-19.8L263 147.5c2.3-2.3 5.3-3.5 8.5-3.5H351c33.4 26.9 92.6 64 164.6 64 72.1 0 131.4-37.2 164.8-64.2l72.3-0.6h0.1z m0-64h-0.6l-83.8 0.7c-7.6 0.1-15 2.8-20.7 7.8-19.6 17-71.3 56.3-132.1 56.3-60.6 0-112.3-39.1-132-56.2-5.8-5.1-13.3-7.8-21-7.8h-91c-20.2 0-39.5 8-53.7 22.3L23.1 296.8c-30.5 30.5-30.5 79.8 0 110.3L128 512c8.8 8.8 20.4 13.3 32 13.3s23.2-4.4 32-13.3v416c0 17.7 14.3 32 32 32h288v-1h288c17.7 0 32-14.3 32-32V511c8.8 8.8 20.4 13.3 32 13.3s23.2-4.4 32-13.3l104.8-104.8c30.5-30.5 30.5-79.8 0-110.3L806.5 101.5c-14.2-14.2-33.6-22.3-53.7-22.3z" p-id="8496" fill="#556bee"></path></svg>                                                <ListItemText primary={<span style={{textAlign: 'left' ,fontSize: 17, fontFamily:'angltrr'}}>Individual dressing</span>}/>
+                                                <ListItemSecondaryAction> <IconButton edge="end" aria-label="arrow"> <ArrowForwardIosIcon /> </IconButton> </ListItemSecondaryAction>
+                                            </ListItem>
+                                        </Link>
+
+                                        <Link to='/user/code' style={linkStyle}>
+                                            <ListItem button divider>
+                                            <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7122" width="25" height="25" style={{position:'relative', top:0,left:-5}}><path d="M944.8 1012c-5.6 0-9.6-4.8-9.6-10.4V637.6c0-5.6 4.8-10.4 9.6-10.4h28c5.6 0 10.4 4.8 10.4 10.4v364c0 5.6-4.8 10.4-10.4 10.4h-28z m-140 0c-5.6 0-10.4-4.8-10.4-10.4v-280c0-5.6 4.8-9.6 10.4-9.6h28c5.6 0 10.4 4.8 10.4 9.6v280c0 5.6-4.8 10.4-10.4 10.4h-28z m-140 0c-5.6 0-10.4-4.8-10.4-10.4v-280c0-5.6 4.8-9.6 10.4-9.6h28c5.6 0 10.4 4.8 10.4 9.6v280c0 5.6-4.8 10.4-10.4 10.4h-28z m-602.4 0c-28.8 0-52-23.2-52-52V680c0-28.8 23.2-52 52-52h280c28.8 0 52 23.2 52 52v280c0 28.8-23.2 52-52 52h-280z m28-336c-17.6 0-32 14.4-32 32v224c0 17.6 14.4 32 32 32h224c17.6 0 32-14.4 32-32v-224c0-17.6-14.4-32-32-32h-224z m406.4 224c-5.6 0-9.6-4.8-9.6-9.6V637.6c0-5.6 4.8-10.4 9.6-10.4h28c5.6 0 10.4 4.8 10.4 10.4v252c0 5.6-4.8 9.6-10.4 9.6h-28zM20.8 536c-5.6 0-10.4-4.8-10.4-9.6v-28c0-5.6 4.8-9.6 10.4-9.6h980c5.6 0 9.6 4.8 9.6 9.6v28c0 5.6-4.8 9.6-9.6 9.6H20.8z m657.6-140c-28.8 0-52-23.2-52-52V64c0-28.8 23.2-52 52-52h280c28.8 0 52 23.2 52 52v280c0 28.8-23.2 52-52 52h-280z m28-336c-17.6 0-32 14.4-32 32v224c0 17.6 14.4 32 32 32h224c17.6 0 32-14.4 32-32v-224c0-17.6-14.4-32-32-32h-224z m-209.6 336c-5.6 0-9.6-4.8-9.6-10.4V21.6c0-5.6 4.8-10.4 9.6-10.4h28c5.6 0 10.4 4.8 10.4 10.4v364c0 5.6-4.8 10.4-10.4 10.4h-28z m-434.4 0c-28.8 0-52-23.2-52-52V64c0-28.8 23.2-52 52-52h280c28.8 0 52 23.2 52 52v280c0 28.8-23.2 52-52 52h-280z m28-336c-17.6 0-32 14.4-32 32v224c0 17.6 14.4 32 32 32h224c17.6 0 32-14.4 32-32v-224c0-17.6-14.4-32-32-32h-224z" fill="#556bee" p-id="7123"></path></svg>
+                                             <ListItemText primary={<span style={{textAlign: 'left' ,fontSize: 17, fontFamily:'angltrr'}}>My Code</span>}/>
+                                                <ListItemSecondaryAction> <IconButton edge="end" aria-label="arrow"> <ArrowForwardIosIcon /> </IconButton> </ListItemSecondaryAction>
+                                            </ListItem>
+                                        </Link>
+
                                         <Link to='/settings' style={linkStyle}>
                                         <ListItem button>
                                             <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="10442" width="25" height="25" style={{position:'relative', top:0,left:-5}}><path d="M872.554667 306.304c-22.613333 8.128-45.696 9.941333-69.162667 4.373333a119.722667 119.722667 0 0 1-85.504-158.144c1.749333-4.842667 0.853333-6.954667-3.605333-8.96-17.92-8.106667-35.541333-16.917333-53.674667-24.533333-11.925333-4.992-24.533333-8.384-36.501333-12.373333-23.146667 47.658667-59.456 74.88-112.064 74.88-52.821333 0-89.258667-27.306667-111.978667-74.538667a411.733333 411.733333 0 0 0-95.530667 39.573333c17.216 49.493333 10.922667 94.634667-26.538666 131.925334-37.376 37.205333-82.496 43.712-131.776 26.282666A413.290667 413.290667 0 0 0 106.666667 400.298667c46.933333 22.656 74.197333 58.666667 74.517333 110.997333 0.32 53.162667-26.986667 89.770667-74.538667 112.768a410.154667 410.154667 0 0 0 39.637334 95.530667c47.808-16.789333 91.669333-11.370667 128.64 23.253333 39.957333 37.44 47.274667 83.626667 29.653333 134.933333a404.949333 404.949333 0 0 0 95.530667 39.466667c23.04-47.36 59.349333-74.474667 111.978666-74.453333 52.885333 0.064 89.216 27.541333 111.893334 74.538666a411.584 411.584 0 0 0 95.488-39.616c-17.386667-49.493333-10.816-94.4 26.24-131.626666 37.290667-37.418667 82.432-43.776 132.053333-26.538667a407.637333 407.637333 0 0 0 39.509333-95.509333c-47.786667-23.210667-74.986667-59.946667-74.517333-113.066667 0.448-52.053333 27.562667-87.957333 74.56-110.656a420.394667 420.394667 0 0 0-38.016-92.970667c-2.048-3.712-4.309333-1.92-6.762667-1.066666z m85.952 82.794667a42.666667 42.666667 0 0 1-22.613334 49.642666c-34.602667 16.725333-50.176 39.146667-50.453333 72.618667-0.298667 34.282667 15.253333 57.194667 50.496 74.304a42.666667 42.666667 0 0 1 22.549333 49.536 450.304 450.304 0 0 1-43.669333 105.472 42.666667 42.666667 0 0 1-51.050667 19.178667c-36.650667-12.736-63.850667-7.68-87.808 16.362666-23.914667 24.021333-28.949333 51.093333-16.213333 87.381334a42.666667 42.666667 0 0 1-19.072 51.178666 454.229333 454.229333 0 0 1-105.344 43.690667 42.666667 42.666667 0 0 1-49.770667-22.592c-16.725333-34.688-39.509333-50.368-73.493333-50.389333-33.92-0.021333-56.597333 15.509333-73.578667 50.432a42.666667 42.666667 0 0 1-49.322666 22.570666 447.338667 447.338667 0 0 1-105.6-43.562666 42.666667 42.666667 0 0 1-19.328-50.986667c13.034667-37.973333 7.381333-65.728-18.474667-89.941333-23.594667-22.101333-50.090667-26.517333-85.333333-14.144a42.666667 42.666667 0 0 1-51.157334-19.050667 452.821333 452.821333 0 0 1-43.733333-105.450667 42.666667 42.666667 0 0 1 22.549333-49.706666c35.072-16.938667 50.666667-39.808 50.453334-74.069334-0.213333-33.642667-15.786667-56.149333-50.389334-72.853333A42.666667 42.666667 0 0 1 65.493333 389.12a455.808 455.808 0 0 1 43.541334-105.344 42.666667 42.666667 0 0 1 51.392-19.242667c36.096 12.778667 63.317333 7.722667 87.466666-16.298666 24-23.893333 29.034667-51.072 16.32-87.68a42.666667 42.666667 0 0 1 19.178667-51.050667 454.4 454.4 0 0 1 105.386667-43.669333 42.666667 42.666667 0 0 1 49.706666 22.656c16.725333 34.730667 39.509333 50.389333 73.536 50.368 33.898667 0 56.576-15.616 73.664-50.837334a42.666667 42.666667 0 0 1 51.882667-21.845333c2.517333 0.832 4.992 1.621333 9.28 2.965333l7.530667 2.346667c8.96 2.88 15.786667 5.290667 22.698666 8.192 10.154667 4.245333 18.090667 7.872 35.029334 15.829333 10.069333 4.736 14.4 6.741333 19.733333 9.152 25.024 11.306667 35.349333 36.821333 26.154667 62.336-16 44.352 9.344 91.221333 55.253333 102.144 14.805333 3.52 29.418667 2.538667 44.864-3.029333a33.28 33.28 0 0 1 4.48-1.621333c5.269333-1.621333 10.88-2.453333 17.322667-1.941334 16.853333 1.344 29.525333 11.093333 36.736 24.170667a462.890667 462.890667 0 0 1 41.813333 102.357333zM522.666667 320a202.666667 202.666667 0 1 0 166.4 86.954667 21.333333 21.333333 0 0 0-35.008 24.384 160 160 0 1 1-69.184-56.128 21.333333 21.333333 0 0 0 16.597333-39.317334A202.090667 202.090667 0 0 0 522.666667 320z" fill="#556bee" p-id="10443"></path></svg>
@@ -416,120 +405,14 @@ const UserInfo: React.FC = () => {
                                     </List>
                                 </div>
                                 </List>
+                                <footer style={{textAlign:"center",width: '100%'}}>
+                                    <p style={{color:'gray',height: '50px', lineHeight: '50px',marginLeft:"center"}}>This service is provided by Group13</p>
+                                </footer>                
                             </div>
-
+                            
                     </List>
-            <Content style={{marginTop: "5%"}}>
-                <Row
-                    gutter={[10, 20]}
-                    justify="center"
-                    align='middle'
-                    style={{marginLeft: "2%", marginRight: "2%"}}
-                >
-                    {/* <Col span={22}>
-                        <Card
-                            cover={
-                                <img
-                                    alt="example"
-                                    src={member}
-                                />
-                            }
-                            actions={[
-                                <EditOutlined key="edit"/>,
-                                <LogoutOutlined key="logout"/>
-                            ]}
-                        >
-                            <Meta
-                                style={{
-                                    minHeight: "100px"
-                            }}
-                                avatar={<Avatar style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />}/>}
-                                title={"Lin"}
-                                description="The user is too lazy to leave a personal signature"
-                            />
-                        </Card>
-                    </Col> */}
-
-                </Row>
-                {/* <Row
-                    gutter={[30, 30]}
-                    justify="center"
-                    align='middle'
-                    style={{marginTop: "10%"}}
-                >
-                    <Col span={7}>
-                        <Carousel>
-                            <div onMouseEnter={onHover} onMouseLeave={onHover}>
-                                <div style={contentStyle}>
-                                    <Link to='/register' style={{color:'white'}}>
-                                    <br/>   
-                                    <AppsTwoToneIcon />
-                                    <h3 style={{margin: 0}}>Activity</h3></Link>
-                                    <br/>
-                                </div>
-                            </div>
-                        </Carousel>
-                    </Col>
-                    <Col span={7}>
-                        <Carousel>
-                            <div>
-                                <div style={contentStyle}>
-                                <Link to='/manager/facility' style={{color:'white'}}>
-                                    <br/>
-                                    <WorkOutlineTwoToneIcon />
-                                    <h3 style={{margin: 0}}>Lesson</h3></Link>
-                                </div>
-                            </div>
-                        </Carousel>
-                    </Col>
-                    <Col span={7}>
-                        <Carousel>
-                            <div>
-                                <div style={contentStyle}>
-                                <Link to='/cards' style={{color:'white'}}>
-                                    <br/>
-                                    <CardMembershipTwoToneIcon />
-                                    <h3 style={{margin: 0}}>Card</h3></Link>
-                                </div>
-                            </div>
-                        </Carousel>
-                    </Col>
-                    <Col span={7}>
-                        <Carousel>
-                            <div>
-                                <div style={contentStyle}>
-                                    <br/>
-                                    <GroupTwoToneIcon />
-                                    <h3 style={{margin: 0}}>VIP</h3>
-                                </div>
-                            </div>
-                        </Carousel>
-                    </Col>
-                    <Col span={7}>
-                        <Carousel>
-                            <div>
-                                <div style={contentStyle}>
-                                    <br/>
-                                    <CreditCardTwoToneIcon />
-                                    <h3 style={{margin: 0}}>Coupon</h3>
-                                </div>
-                            </div>
-                        </Carousel>
-                    </Col>
-                    <Col span={7}>
-                        <Carousel>
-                            <div>
-                                <div style={contentStyle}>
-                                    <br/>
-                                    <Link to='/settings' style={{color:'white'}}>
-                                    <SettingsApplicationsTwoToneIcon />
-                                    <h3 style={{margin: 0}}>Setting</h3></Link>
-                                </div>
-                            </div>
-                        </Carousel>
-                    </Col>
-                </Row> */}
-            </Content>
+                    
+            
             <MyFootNav/>
         </Layout>
     );

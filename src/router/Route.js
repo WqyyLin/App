@@ -18,7 +18,8 @@ import Cards from "../pages/cards/cards";
 import Order from "../pages/user/order/allOrder";
 import LessonOrder from "../pages/user/order/lessonOrder";
 import InfoEdit from "../pages/user/info/accountinfo";
-import Activity from "../pages/user/activity/activity"
+import Activity from "../pages/user/activity/activity";
+import Wallet from "../pages/user/wallet/wallet"
 const routes = () => (
     <Router>
         <Routes>
@@ -53,8 +54,8 @@ const routes = () => (
 
             {/*cards*/}  
             <Route path={'/cards'} element={<Cards/>}  />
-
-
+            {/*wallet*/} 
+            <Route path={'/user/wallet'} element={<Wallet/>}  />
         </Routes>
     </Router>
 );

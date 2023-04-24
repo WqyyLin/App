@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {CheckOutlined, KeyOutlined, MailOutlined, PlusOutlined, UserOutlined} from '@ant-design/icons';
 import {Button, Form, Input, Modal, Row, Typography, Upload,} from 'antd';
-import {Link, useNavigate,useLocation} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import type {RcFile, UploadProps} from 'antd/es/upload';
 import type {UploadFile} from 'antd/es/upload/interface';
 import ImgCrop from 'antd-img-crop';
@@ -253,8 +253,8 @@ const RegisterPage: React.FC = () => {
                 }}>
                     <ImgCrop showGrid rotationSlider aspectSlider showReset cropShape="round" modalTitle="Crop Head">
                         <Upload
-                            action={"http://localhost:8080/app/profilePhoto/"+ sessionStorage.getItem("email")}
-                            method="PUT"
+                            action="http://localhost:8080/user/png"
+                            method="POST"
                             listType="picture-circle"
                             fileList={fileList}
                             onPreview={handlePreview}

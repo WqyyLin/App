@@ -98,7 +98,6 @@ const onSearch = (value: string) => console.log(value);
 const Activity: React.FC = () => {
     const location = useLocation(); 
     const { id, name } = location.state;
-
     const [screenWidth, setScreenWidth] = useState(window.innerWidth);
     const [screenHeight, setScreenHeight] = useState(window.innerHeight);
 
